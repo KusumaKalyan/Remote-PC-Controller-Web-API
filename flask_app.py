@@ -6,10 +6,10 @@ from flask_mysqldb import MySQL
 
 app = Flask(__name__)
 
-app.config['MYSQL_HOST'] = 'kusumakalyan.mysql.pythonanywhere-services.com'
-app.config['MYSQL_USER'] = 'kusumakalyan'
-app.config['MYSQL_PASSWORD'] = '8096311455mysql'
-app.config['MYSQL_DB'] = 'kusumakalyan$pccontroller'
+app.config['MYSQL_HOST'] = 'host'
+app.config['MYSQL_USER'] = 'user'
+app.config['MYSQL_PASSWORD'] = 'password'
+app.config['MYSQL_DB'] = 'db name'
 
 mysql = MySQL(app)
 
@@ -33,7 +33,7 @@ def getOnOffValue():
 
 @app.route('/setonvalue', methods=['POST'])
 def setOnValue():
-    f = Fernet(b'DAvY1K4-Mhvqb3iNS9qJhYni99Olz8Ksty3ZFKGrir4=')
+    f = Fernet(b'unique key')
     raw_time = str(datetime.now(pytz.timezone('Asia/Kolkata'))).split(' ')[1].split(':')
     if(f.decrypt(bytes(request.args.get('code'), 'utf-8')).decode('utf-8') == raw_time[0]+raw_time[1]):
         cur = mysql.connection.cursor()
@@ -46,7 +46,7 @@ def setOnValue():
 
 @app.route('/setoffvalue', methods=['POST'])
 def setOffValue():
-    f = Fernet(b'DAvY1K4-Mhvqb3iNS9qJhYni99Olz8Ksty3ZFKGrir4=')
+    f = Fernet(b'unique key')
     raw_time = str(datetime.now(pytz.timezone('Asia/Kolkata'))).split(' ')[1].split(':')
     if(f.decrypt(bytes(request.args.get('code'), 'utf-8')).decode('utf-8') == raw_time[0]+raw_time[1]):
         cur = mysql.connection.cursor()
